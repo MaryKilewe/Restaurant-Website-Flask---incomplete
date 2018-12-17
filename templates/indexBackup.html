@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Backup</title>
+    <!-- ======================= links to bootstrap files =================== -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/animate.css">
+    <!-- ====================== links to javascript files =================== -->
+    <script src ="../static/bootstrap4.1.3/js/jquery.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/bootstrap.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/parallax.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/wow.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/jquery.easing.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/fliplightbox.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/functions.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+        });
+    </script>
+
+
+    <style>
+        #landingpage h1{
+            font-weight: bolder;
+            font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+        }
+        #bottom{
+            padding-left: 10%;
+            padding-right: 10%;
+            padding-top:3%;
+            padding-bottom:3%;
+            background-color: #1b1e21;
+            text-align: left;
+            float: bottom;
+            font-size: small;
+        }
+        #bottomlist{
+            list-style-position: inside;
+            margin: 0;
+            padding: 0;
+            font-size: medium;
+            line-height: 0.5em;
+        }
+        .carousel-inner img{
+            width: 100%;
+            height: 600px;
+
+        }
+        .carousel-caption{
+            top: 50%;
+            transform: translateY(-50%);
+            bottom: initial;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
+        <a href="" class="navbar-brand">eBusiness</a>
+        <!-- button to trigger links for small screens-->
+        <!-- this class(navbar-toggler) makes sure that the button is not visible when the browser window is at its largest. When the screen ()view port-->
+        <!--is smaller like a phone the link will disappear and the menu button will appear on the upper right corner-->
+        <button class="navbar-toggler" data-target="#mynav" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mynav">
+            <!-- mr-auto stand for margin right auto. self explanatory -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#currentworks" class="nav-link">Work</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#programs" class="nav-link">Programs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contactus" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+            <nav class="navbar navbar-light bg-white">
+                <form class="form-inline">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search...">
+                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
+    </nav>
+
+    <section class="row" id="home">
+        <div class="col-md-12 carousel slide" id="demo"  data-ride="carousel">
+
+          <!-- Indicators -->
+          <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+          </ul>
+
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="../static/image/businessman.jpg" alt="Los Angeles">
+              <div class="carousel-caption">
+                  <h1 id="landingheader" class="text-primary">We care for you</h1>
+                  <p id="landingparagraph" class="text-warning">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised </p>
+                  <a href="" class="btn btn-dark">Get started</a>
+                  <a href="" class="btn btn-dark">Subscribe</a>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="../static/image/shakehands.jpg" alt="Chicago">
+               <div class="carousel-caption">
+                  <h1 id="landingheader" class="text-primary">We care for you</h1>
+                  <p id="landingparagraph" class="text-warning">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised </p>
+                  <a href="" class="btn btn-dark">Get started</a>
+                  <a href="" class="btn btn-dark">Subscribe</a>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="../static/image/stocksgoup.jpg" alt="New York">
+              <div class="carousel-caption"  style=" margin:0 auto;">
+                  <h1 id="landingheader" class="text-primary">We care for you</h1>
+                  <p id="landingparagraph" class="text-warning">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised </p>
+                  <a href="" class="btn btn-dark">Get started</a>
+                  <a href="" class="btn btn-dark">Subscribe</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+    </section>
+
+
+    <!-- ======================== MAIN SECTION/CONTENTS OF THE PAGE========================== -->
+    <!-- ==================================================================================== -->
+
+    <section class="text-justify" style="padding: 10%;">
+
+         <!-- ============================= SECTION ONE ============================ -->
+        <section class="row text-justify">
+            <div class="col-md-4">
+                <img src="../static/image/daisy.jpg" alt="image.jpg" class="img-fluid">
+            </div>
+
+                <!--colors : primary, success, secondary, warning, danger, dark, light
+                text-*
+                bg-*
+                btn-*
+                -->
+            <div class="col-md-8">
+                <h3 class="text-warning">Lorem ipsum</h3>
+                <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+                    <a href="/blog" class="btn btn-dark">Our Blog</a>
+                    <a href="/register" class="btn btn-outline-warning">Register</a>
+            </div>
+
+        </section>
+
+
+        <header class="header text-center" style="padding-top:10%">
+            <h2 class="wow rollIn">FAQ</h2>
+            <hr color="#659df7" width="20%" align="center" >
+            <p> You have questions for us? Below are our frequently asked question</p>
+        </header>
+        <!-- =================================== SECTION TWO ====================================-->
+        <section class="row">
+            <div class="col-md-6">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#planning" class="nav-link" data-toggle="tab">Planning </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="#projects" class="nav-link" data-toggle="tab">Projects</a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="#success" class="nav-link" data-toggle="tab">Success</a>
+                    </li>
+                </ul>
+                <!-- tab content-->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="planning">Paragraphs are the building blocks of papers.
+                            Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences,
+                            a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among
+                            sentences is what constitutes a paragraph.<br><br>
+                        <a href="" class="btn btn-outline-warning">Learn more</a>
+                    </div>
+                    <div class="tab-pane" id="projects">A paragraph is defined as “a group of sentences or a single sentence that forms
+                        a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a
+                        paragraph. <br><br>
+                        <a href="" class="btn btn-outline-warning">Learn more</a>
+                    </div>
+                    <div class="tab-pane" id="success">For instance, in some styles of writing, particularly journalistic styles, a paragraph
+                        can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea.
+                        In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the
+                        paragraph. <br><br>
+                        <a href="" class="btn btn-outline-warning">Learn more</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+       <header class="header text-center" style="padding-top:10%" >
+        <h2 class="wow bounceIn" data-wow-delay="0.3s">About Us</h2>
+        <hr color="#659df7" width="20%" align="center" >
+        <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+        </header>
+         <!-- ============================= SECTION THREE ============================ -->
+        <section class="row text-justify" >
+            <div class="col-md-4">
+                <img src="../static/image/daisy.jpg" alt="image.jpg" class="img-fluid" style="max-width: 100%">
+                <h3 class="text-warning">Lorem ipsum</h3>
+                <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+                    <a href="" class="btn btn-dark">Get started</a>
+                    <a href="" class="btn btn-outline-warning">Download</a>
+            </div>
+
+                <!--colors : primary, success, secondary, warning, danger, dark, light
+                text-*
+                bg-*
+                btn-*
+                -->
+            <div class="col-md-4">
+                <img src="../static/image/shark.jpg" alt="image.jpg" class="img-fluid">
+                <h3 class="text-warning">Lorem ipsum</h3>
+                <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+                    <a href="" class="btn btn-dark">Get started</a>
+                    <a href="" class="btn btn-outline-warning">Download</a>
+            </div>
+            <div class="col-md-4">
+                <img src="../static/image/daisy.jpg" alt="image.jpg" class="img-fluid">
+                <h3 class="text-warning">Lorem ipsum</h3>
+                <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+                    <a href="" class="btn btn-dark">Get started</a>
+                    <a href="" class="btn btn-outline-warning">Download</a>
+            </div>
+
+        </section>
+
+        <!-- ====================================== SECTION FOUR ======================================== -->
+        <header class="header text-center" id="currentworks" style="padding-top:10%">
+        <h2 class="wow fadeIn" data-wow-delay="0.3s">Current works</h2>
+        <hr color="#659df7" width="20%" align="center" >
+        <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+        </header>
+        <section class="row">
+            <div class="col-md-4 wow fadeInDown" data-wow-delay="0.3s">
+                <div class="card">
+                    <img src="../static/image/shark.jpg" alt="shark.jpg">
+                    <div class="card-body">
+                        <h4 class="card-title">Digital skills</h4>
+                        <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                        the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+                        <a href="" class="btn btn-outline-success">Apply now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- data-wow-delay="0.5s" changes the timing of the fade by specifying the time in seconds(s)-->
+            <div class="col-md-4 wow fadeInDown" data-wow-delay="0.5s">
+                <div class="card">
+                    <img src="../static/image/daisy.jpg" alt="daisy.jpg">
+                    <div class="card-body">
+                        <h4 class="card-title">Programs</h4>
+                        <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                        the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+                        <a href="" class="btn btn-outline-success">Apply now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 wow fadeInDown" data-wow-delay="0.8s">
+                <div class="card">
+                    <img src="../static/image/shark.jpg" alt="shark.jpg">
+                    <div class="card-body">
+                        <h4 class="card-title">Products</h4>
+                        <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                        the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+                        <a href="" class="btn btn-outline-success">Apply now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================= SECTION FIVE ============================ -->
+        <header class="header text-center" id="programs" style="padding-top:10%">
+        <h2>Available Programs</h2>
+        <hr color="#659df7" width="20%" align="center" >
+        <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+        </header>
+        <section class="row text-center" id="pricelistings">
+            <div class="col-md-4">
+                <h4>Basic- 60$/Year</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Free app</li>
+                    <li class="list-group-item">Unlimited storage</li>
+                    <li class="list-group-item">Free 4gb data</li>
+                    <li class="list-group-item">Free service</li>
+                    <li class="list-group-item">Cloud hosting</li>
+                    <li class="list-group-item">24 hr surveilance</li>
+                    <li class="list-group-item"><a href="" class="btn btn-outline-primary">Quick installation</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Member- 100$/Year</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Free app</li>
+                    <li class="list-group-item">Door to door service</li>
+                    <li class="list-group-item">Regular inspection</li>
+                    <li class="list-group-item">24 hr surveilance</li>
+                    <li class="list-group-item">Membership package</li>
+                    <li class="list-group-item">Cloud hosting</li>
+                    <li class="list-group-item"><a href="" class="btn btn-outline-primary">Quick installation</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Premium- 150$/Year</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Free app</li>
+                    <li class="list-group-item">Unlimited storage</li>
+                    <li class="list-group-item">Free 4gb data</li>
+                    <li class="list-group-item">Free service</li>
+                    <li class="list-group-item">Cloud hosting</li>
+                    <li class="list-group-item">24 hr surveilance</li>
+                    <li class="list-group-item"><a href="" class="btn btn-outline-primary">Quick installation</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============================= SECTION SIX ============================ -->
+        <header class="header text-center" id="pricing" style="padding-top:10%">
+            <h2>Our prices</h2>
+            <hr color="#659df7" width="20%" align="center" >
+            <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+        </header>
+        <section class="row text centre">
+            <div class="col-md-12">
+                <table width="100%" class="table table-light table-striped table-hover table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Product name</th>
+                            <th>Product cost</th>
+                            <th>Product desc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kid's Toys</td>
+                            <td>1000kes</td>
+                            <td>the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</td>
+                        </tr>
+                        <tr>
+                            <td>Robots</td>
+                            <td>30000kes</td>
+                            <td>the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</td>
+                        </tr>
+                        <tr>
+                            <td>Remote control choppers</td>
+                            <td>15000kes</td>
+                            <td>the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+         <!-- ============================= SECTION SEVEN ============================ -->
+        <header class="header text-center" id="contactus" style="padding-top:10%">
+            <h2>Talk to us</h2>
+            <hr color="#659df7" width="20%" align="center" >
+            <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+        </header>
+        <section class="row">
+             <div class="col-md-6">
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2947.
+                 3822475406264!2d-71.11884878502468!3d42.37700287918577!2m3!1f0!2f0!3f0!
+                 3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e377427d7f0199%3A0x5937c65cee2427f0!
+                 2sHarvard+University!5e0!3m2!1sen!2ske!4v1537437036622" width="100%"
+                 height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+             </div>
+             <div class="col-md-6">
+                <form action="" role="form">
+                    <div class="form-group">
+                        <label for="">Email:</label> <br>
+                        <input type="email" class="form-control" placeholder="Your email...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tel:</label> <br>
+                        <input type="tel" class="form-control" placeholder="Your tel number...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Name:</label> <br>
+                        <input type="text" class="form-control" placeholder="Your name...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Message:</label> <br>
+                        <textarea name="" id="" class="form-control" cols="50" rows="5" placeholder="Your comment..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-dark" value="Submit query">
+                    </div>
+                </form>
+             </div>
+        </section>
+
+
+    </section> <!--Ending tag for main section-->
+
+
+
+
+<!-- ============================= BOTTOM OF PAGE(FOOTER SECTION)================================ -->
+    <section class="row" id="bottom">
+            <div class="col-md-4">
+                <h5 class="text-light">About Us</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                <br>
+                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-light">Latest news</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <ul id="bottomlist" class="text-secondary" type="circle">
+                    <li>Trend dont matter but techniques does
+                        <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-light">Follow Us On Instagram</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <img src="../static/image/daisy.jpg" alt="image.jpg" class="img-fluid">
+            </div>
+    </section>
+
+
+    <footer>
+
+    </footer>
+
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CUSTOMER-SEARCH</title>
+        <!-- ======================= links to bootstrap files =================== -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/animate.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/style.css"> <!-- style sheet for dashboard and various other things -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/assets/css/font-awesome.min.css"> <!-- adds icons -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/fontawesome/css/fontawesome.min.css"> <!-- adds icons -->
+    <!-- ====================== links to javascript files =================== -->
+    <script src ="../static/bootstrap4.1.3/js/jquery.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/bootstrap.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/parallax.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/wow.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/jquery.easing.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/fliplightbox.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/functions.js"></script>
+
+
+</head>
+<body>
+
+        <header id="header" class="header">
+        <div class="top-left" style="padding:15px">
+
+            <a href="/homepage" class="text-dark navbar-brand" style="padding-right:20px">SMOKE HOUSE</a>
+
+            <a href="/homepage#meals" class="nav-item">Meals<span style="padding:20px">|</span></a>
+            <a href="#drinks" class="nav-item">Drinks<span style="padding:20px">|</span></a>
+            <a href="#desserts" class="nav-item">Dessert<span style="padding:20px">|</span></a>
+            <a href="#contactus" class="nav-item">Contact Us</a>
+
+           {% if session['userkey'] %}
+                <h6 style="float:right">
+                    Welcome: {{ session['userkey'] }}
+                    <a href="/logout" class="btn btn-warning">Logout</a>
+                </h6>
+            {% endif %}
+        </div>
+
+    </header>
+
+
+    <!-- ========================================== Left Panel ( DASHBOARD )============================================= -->
+    <section class="row">
+        <div class="col-md-2">
+            <nav class="navbar navbar-expand-sm navbar-default">
+                <div id="main-menu" class="main-menu collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        </li>
+                        <li class="menu-title">Options</li><!-- /.menu-title -->
+                        <li>
+                            <a href="/search"><i class="menu-icon fa fa-search"></i>  Search </a>
+                        </li>
+                        <li>
+                            <a href="/additem"><i class="menu-icon fa fa-plus"></i>  Add item </a>
+                        </li>
+                        <li>
+                            <a href="/imageUpload"><i class="menu-icon fa fa-upload"></i>  Upload pic</a>
+                        </li>
+                        <li>
+                            <a href="/uploaded-images"><i class="menu-icon fa fa-image"></i>  Images </a>
+                        </li>
+                        <li>
+                            <a href="/food-list"><i class="menu-icon fas fa-utensils"></i> Menu items </a>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-chart-bar"></i>Charts</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Pie Chart</a></li>
+                                <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Bar graph</a></li>
+                                <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Scatter plot</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>User Data</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-table"></i><a href="tables-basic.html">Registered users</a></li>
+                                <li><i class="fa fa-table"></i><a href="tables-data.html">Employee Details</a></li>
+                                <li><i class="fa fa-table"></i><a href="tables-data.html">Orders</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">Maps</li><!-- /.menu-title -->
+
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-map-marker"></i>Maps</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
+                                <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-title">Extras</li><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                                <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                                <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </div>
+    <!-- /#left-panel -->
+    <!-- ============================================= Left Panel ================================================= -->
+
+    <div class="col-md-10">
+        <div class="content">
+            <br>
+            <br>
+             <div id="searchQueries">
+                <form action="/search" method="post" style="padding-right:30%" class="form form-inline">
+                    <input class="form-control mr-sm-2" type="text" name="education" placeholder="Enter education type..."
+                           style="padding-right:5%">
+                    <span style="padding-right:5%"></span>
+
+                    <label>State</label>
+                    <select name="comp_select_state" class="form-control" >
+                        {% for state in state_data %}
+                          <option value="{{ state.name }}">{{ state.name }}</option>
+                          <!-- simply put the above code does the following:
+                          <option value="Nevada">Nevada</option>
+                          <option value="Washington">Washington</option>
+                          <option value="Arizona">Arizona</option>
+                          <option value="California">California</option>  -->
+                        {% endfor %}
+                    </select>
+                    <span style="padding-right:5%"></span>
+
+                    <label>Gender</label>
+                    <select name="comp_select_gender" class="form-control">
+                        {% for gender in gender_data %}
+                          <option value="{{ gender.name }}">{{ gender.name }}</option>
+                        {% endfor %}
+                        <!-- <option value="female">F</option>
+                        <option value="male">M</option> -->
+                    </select>
+                    <span style="padding-right:3%"></span>
+
+                    <input type="submit" value="Search" class="btn btn-success my-2 my-sm-0">
+                </form>
+            </div>
+            <div id="tabledata">
+                <br>
+                <br>
+                <div>
+                    <h4><strong class="card-title">Search customers</strong></h4>
+                </div>
+                <h5>{{ msg }}</h5>
+                <br>
+                <table class="table table-dark">
+                    <tr>
+                        <th>STATE</th>
+                        <th>COVERAGE</th>
+                        <th>EDUCATION</th>
+                        <th>EFFECT DATE</th>
+                        <th>EMPLOYMENT</th>
+                        <th>INCOME</th>
+
+                    </tr>
+                    {% for row in customerdata %}
+                        <tr>
+                            <td class="text-light">{{ row[1] }}</td>
+                            <td class="text-light">{{ row[4] }}</td>
+                            <td class="text-light">{{ row[5] }}</td>
+                            <td class="text-light">{{ row[6] }}</td>
+                            <td class="text-light">{{ row[7] }}</td>
+                            <td class="text-light">{{ row[9] }}</td>
+
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+
+
+        </div>
+    </div> <!--     col-md-10 div ending tag-->
+
+    </section>
+
+
+
+
+</body>
+</html>

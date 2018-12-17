@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <title>Backup</title>
+    <!-- ======================= links to bootstrap files =================== -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/animate.css">
+    <!-- ====================== links to javascript files =================== -->
+    <script src ="../static/bootstrap4.1.3/js/jquery.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/bootstrap.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/parallax.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/wow.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/jquery.easing.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/fliplightbox.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/functions.js"></script>
+    <script src="../static/simpleCart.js"></script>
+    <script>
+	// array representing the format and columns of the cart, see
+	// the cart columns documentation
+	cartColumns: [
+		{ attr: "name" , label: "Name" },
+		{ attr: "price" , label: "Price", view: 'currency' },
+		{ view: "decrement" , label: false, text: "-" },
+		{ attr: "quantity" , label: "Qty" },
+		{ view: "increment" , label: false, text: "+" },
+		{ attr: "total" , label: "SubTotal", view: 'currency' },
+		{ view: "remove" , text: "Remove" , label: false }
+	],
+
+	// "div" or "table" - builds the cart as a table or collection of divs
+	cartStyle: "div",
+
+	// how simpleCart should checkout, see the checkout reference for more info
+	checkout: {
+		type: "PayPal" ,
+		email: "you@yours.com"
+	},
+
+	// set the currency, see the currency reference for more info
+	currency: "USD",
+
+	// collection of arbitrary data you may want to store with the cart,
+	// such as customer info
+	data: {},
+
+	// set the cart langauge (may be used for checkout)
+	language: "english-us",
+
+	// array of item fields that will not be sent to checkout
+	excludeFromCheckout: [],
+
+	// custom function to add shipping cost
+	shippingCustom: null,
+
+	// flat rate shipping option
+	shippingFlatRate: 0,
+
+	// added shipping based on this value multiplied by the cart quantity
+	shippingQuantityRate: 0,
+
+	// added shipping based on this value multiplied by the cart subtotal
+	shippingTotalRate: 0,
+
+	// tax rate applied to cart subtotal
+	taxRate: 0,
+
+	// true if tax should be applied to shipping
+	taxShipping: false,
+
+	// event callbacks
+	beforeAdd				: null,
+	afterAdd				: null,
+	load					: null,
+	beforeSave				: null,
+	afterSave				: null,
+	update					: null,
+	ready					: null,
+	checkoutSuccess				: null,
+	checkoutFail				: null,
+	beforeCheckout				: null
+});
+</script>
+
+
+
+    <style>
+
+        #landingpage h1{
+            font-weight: bolder;
+            font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+        }
+        #bottom{
+            padding-left: 10%;
+            padding-right: 10%;
+            padding-top:3%;
+            padding-bottom:3%;
+            background-color: #1b1e21;
+            text-align: left;
+            float: bottom;
+            font-size: small;
+        }
+        #bottomlist{
+            list-style-position: inside;
+            margin: 0;
+            padding: 0;
+            font-size: medium;
+            line-height: 0.5em;
+        }
+        .carousel-inner img{
+            width: 100%;
+            height: 600px;
+
+        }
+        .carousel-caption{
+            top: 50%;
+            transform: translateY(-50%);
+            bottom: initial;
+        }
+
+        .cartInfo.open {
+        background-position: -218px -26px;
+        }
+        .cartInfo {
+            float: right;
+            width: 60px;
+            background: #EFF1F4 url(../images/sprite.png) -218px -2px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #6e6e6e;
+            text-shadow: 1px 1px 0 #fff;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-box-shadow: inset 0 0 1px 0px rgba(0,0,0,.20), 0 1px 0 #fff;
+            -moz-box-shadow: inset 0 0 1px 0px rgba(0,0,0,.20), 0 1px 0 #fff;
+            box-shadow: inset 0 0 1px 0px rgba(0,0,0,.20), 0 1px 0 #fff;
+            padding: 7px 8px 6px 33px;
+            line-height: 18px;
+            position: relative;
+            top: 30px;
+            margin-left: 30px;
+            cursor: pointer;
+            -webkit-transition: background-color .2s linear;
+        }
+        user agent stylesheet
+        div {
+            display: block;
+        }
+        #cartPopover {
+    position: absolute;
+    width: 218px;
+    top: 72px;
+    right: 14px;
+    z-index: 9999;
+    display: none;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.8);
+    font-family: "FreightSansMedium", sans-serif;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 3px rgba(0,0,0,.5);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 3px rgba(0,0,0,.5);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 3px rgba(0,0,0,.5);
+    background: #45484a;
+    background: -moz-linear-gradient(top, #45484a 0%, #2a2b2c 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484a), color-stop(100%,#2a2b2c));
+    background: -webkit-linear-gradient(top, #45484a 0%,#2a2b2c 100%);
+    background: -o-linear-gradient(top, #45484a 0%,#2a2b2c 100%);
+    background: -ms-linear-gradient(top, #45484a 0%,#2a2b2c 100%);
+    background: linear-gradient(top, #45484a 0%,#2a2b2c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484a', endColorstr='#2a2b2c',GradientType=0 );
+}
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
+        <a href="/homepage" class="navbar-brand">SMOKE HOUSE</a>
+        <!-- button to trigger links for small screens-->
+        <!-- this class(navbar-toggler) makes sure that the button is not visible when the browser window is at its largest. When the screen ()view port-->
+        <!--is smaller like a phone the link will disappear and the menu button will appear on the upper right corner-->
+        <button class="navbar-toggler" data-target="#mynav" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mynav">
+            <!-- mr-auto stand for margin right auto. self explanatory -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="#meals" class="nav-link">Meals</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#drinks" class="nav-link">Drinks</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#desserts" class="nav-link">Dessert</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contactus" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+            <h5>{{msg}}</h5>
+            <div class="cartInfo"><span class="simpleCart_quantity"></span> items</div>
+            <div id="cartPopover" style="display: block;">
+					<div id="triangle">▲</div>
+					<div class="simpleCart_items"></div>
+					<div id="cartData" class="clearfix">
+						<div class="left"><strong>Items: </strong><span class="simpleCart_quantity"></span></div>
+						<div class="right"><strong>Total: </strong><span class="simpleCart_total"></span></div>
+					</div>
+					<div id="popoverButtons" class="clearfix">
+						<a href="/cart/" class="hudbtn left">View</a>
+						<a href="javascript:;" class="simpleCart_checkout hudbtn primary right">Checkout</a>
+					</div>
+				</div>
+            <nav class="navbar navbar-light bg-white">
+                <form class="form-inline">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search...">
+                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
+    </nav>
+
+
+<!-- =============================================== CAROUSEL =========================================================-->
+    <section class="row" id="home">
+        <div class="col-md-12 carousel slide" id="demo"  data-ride="carousel">
+
+          <!-- Indicators -->
+          <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+          </ul>
+
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="../static/carousel/carousel1.jpg" alt="food asssortment">
+              <div class="carousel-caption">
+                  <h1 class="text-primary">Are you hungry?</h1>
+                  <p class="text-warning">Well, feast your eyes on our delectable range of juicy, mouthwatering, lip-biting meals.</p>
+                  <p class="text-warning">Just say when and where and we'll that meal to you. Pronto!</p>
+                  <a href="" class="btn btn-dark">Get started</a>
+                  <a href="" class="btn btn-dark">Subscribe</a>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="../static/carousel/chickenCarousel.jpg" alt="chicken">
+               <div class="carousel-caption">
+                  <h1 class="text-primary">Are you hungry?</h1>
+                  <p class="text-warning">Well, feast your eyes on our delectable range of juicy, mouthwatering, lip-biting meals.</p>
+                  <p class="text-warning">Just say when and where and we'll that meal to you. Pronto!</p>
+                  <a href="" class="btn btn-dark">Get started</a>
+                  <a href="" class="btn btn-dark">Subscribe</a>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="../static/carousel/skewersCarousel.jpg" alt="skewers">
+              <div class="carousel-caption"  style=" margin:0 auto;">
+                  <h1 class="text-primary">Are you hungry?</h1>
+                  <p class="text-warning">Well, feast your eyes on our delectable range of juicy, mouthwatering, lip-biting meals.</p>
+                  <p class="text-warning">Just say when and where and we'll that meal to you. Pronto!</p>
+                  <a href="" class="btn btn-dark">Get started</a>
+                  <a href="" class="btn btn-dark">Subscribe</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+    </section>
+
+
+    <!-- ======================== MAIN SECTION/CONTENTS OF THE PAGE========================== -->
+    <!-- ==================================================================================== -->
+
+    <section class="text-justify" style="padding: 10%;">
+
+         <!-- ============================= SECTION ONE ============================ -->
+         <section class="row text-justify">
+                <div class="col-md-4">
+                    <img src="../static/image/smokehouse.jpg" alt="smokehouse.jpg" class="img-fluid">
+                </div>
+
+                    <!--colors : primary, success, secondary, warning, danger, dark, light
+                    text-*
+                    bg-*
+                    btn-*
+                    -->
+                <div class="col-md-8">
+                    <h3 class="text-warning wow bounceIn" data-wow-delay="0.3s" align="center">About Us</h3>
+                    <hr color="#659df7" width="20%" align="center" >
+                    <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                        the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                    </p>
+                        <a href="#" class="btn btn-dark">Subscribe</a>
+                        <a href="/register" class="btn btn-outline-warning">Register</a>
+                </div>
+         </section>
+
+
+        <!-- ===================================== SECTION TWO ============================================= -->
+        <!-- =====================================    MEALS   ============================================= -->
+        <header class="header text-center" id="meals" style="padding-top:10%">
+        <h2 class="wow fadeIn" data-wow-delay="0.3s">Main Course</h2>
+        <hr color="#659df7" width="20%" align="center" >
+        <p>Simply Delectable and Always Piping Hot!</p>
+        </header>
+        <!-- ========= ROW ONE ========== -->
+
+        <section class="row">
+            {%  for row in mealsdata %}
+            <div class="simpleCart_shelfItem col-md-4 wow fadeInDown" data-wow-delay="0.3s">
+                <div class="card">
+
+                    <img src="{{ path_to_images }}{{row[4]}}" class="item_thumb"/>
+                    <div class="card-body">
+                        <b class="item_name card-title">{{ row[1] }}</b><br>
+                        <p class="item_price">{{ row[3] }} $</p>
+                        <a href="/cart/add/{{ row[0] }}" class="item_add btn btn-outline-success">Order Now</a>
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor  %}
+            <span style="padding-bottom:100px"></span>
+        </section>
+
+        <!-- ====================================== SECTION THREE =================================================-->
+        <!-- ======================================     DRINKS    ============================================= -->
+
+        <header class="header text-center" id="drinks" style="padding-top:10%">
+        <h2 class="wow fadeIn" data-wow-delay="0.3s">Drinks</h2>
+        <hr color="#659df7" width="20%" align="center" >
+        <p>Always Remember to wash everything down with a Nice Cold One!</p>
+        </header>
+        <!-- ========= ROW ONE ========== -->
+        <section class="row">
+            {%  for row in drinksdata %}
+            <div class="col-md-4 wow fadeInDown" data-wow-delay="0.3s">
+                <div class="card">
+
+                    <img src="{{ path_to_images }}{{row[4]}}"/>
+                    <div class="card-body">
+                        <b class="card-title">{{ row[1] }}</b><br>
+                        <p>{{ row[3] }} $</p>
+                        <a href="order_item/{{ row[0] }}" class="btn btn-outline-success">Order Now</a>
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor  %}
+            <span style="padding-bottom:100px"></span>
+        </section>
+
+
+        <!-- ===================================== SECTION FOUR ============================================= -->
+        <!-- =====================================   DESSERTS   ============================================= -->
+        <header class="header text-center" id="desserts" style="padding-top:10%">
+        <h2 class="wow fadeIn" data-wow-delay="0.3s">Dessert</h2>
+        <hr color="#659df7" width="20%" align="center" >
+        <p>For those with a sweet tooth ... and some room left!</p>
+        </header>
+        <!-- ========= ROW ONE ========== -->
+        <section class="row">
+            {%  for row in dessertdata %}
+            <div class="col-md-4 wow fadeInDown" data-wow-delay="0.3s">
+                <div class="card">
+
+                    <img src="{{ path_to_images }}{{row[4]}}"/>
+                    <div class="card-body">
+                        <b class="card-title">{{ row[1] }}</b><br>
+                        <p>{{ row[3] }} $</p>
+                        <a href="order_item/{{ row[0] }}" class="btn btn-outline-success">Order Now</a>
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor  %}
+            <span style="padding-bottom:100px"></span>
+        </section>
+
+
+        <!-- ===================================== SECTION FIVE ============================================= -->
+        <!-- =====================================  CONTACT US   ============================================= -->
+        <header class="header text-center" id="contactus" style="padding-top:10%">
+            <h2>Talk to us</h2>
+            <hr color="#659df7" width="20%" align="center" >
+            <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+        </header>
+        <section class="row">
+             <div class="col-md-6">
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2947.
+                 3822475406264!2d-71.11884878502468!3d42.37700287918577!2m3!1f0!2f0!3f0!
+                 3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e377427d7f0199%3A0x5937c65cee2427f0!
+                 2sHarvard+University!5e0!3m2!1sen!2ske!4v1537437036622" width="100%"
+                 height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+             </div>
+             <div class="col-md-6">
+                <form action="" role="form">
+                    <div class="form-group">
+                        <label for="">Email:</label> <br>
+                        <input type="email" class="form-control" placeholder="Your email...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tel:</label> <br>
+                        <input type="tel" class="form-control" placeholder="Your tel number...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Name:</label> <br>
+                        <input type="text" class="form-control" placeholder="Your name...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Message:</label> <br>
+                        <textarea name="" id="" class="form-control" cols="50" rows="5" placeholder="Your comment..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-dark" value="Submit query">
+                    </div>
+                </form>
+             </div>
+        </section>
+
+
+
+    </section> <!--Ending tag for main section-->
+
+
+
+    <!-- ============================= BOTTOM OF PAGE(FOOTER SECTION)================================ -->
+
+    <section class="row" id="bottom">
+            <div class="col-md-4">
+                <h5 class="text-light">About Us</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                <br>
+                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-light">Latest news</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <ul id="bottomlist" class="text-secondary" type="circle">
+                    <li>Trend dont matter but techniques does
+                        <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-light">Follow Us On Instagram</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <img src="../static/image/daisy.jpg" alt="image.jpg" class="img-fluid">
+            </div>
+    </section>
+
+
+
+
+</body>
+</html>

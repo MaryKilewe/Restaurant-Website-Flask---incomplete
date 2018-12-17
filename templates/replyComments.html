@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BlogPost</title>
+     <!-- ======================= links to bootstrap files =================== -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/animate.css">
+    <!-- ====================== links to javascript files =================== -->
+    <script src ="../static/bootstrap4.1.3/js/jquery.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/bootstrap.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/parallax.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/wow.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/jquery.easing.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/fliplightbox.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/functions.js"></script>
+
+<!--https://stackoverflow.com/questions/5902822/stopping-fixed-position-scrolling-at-a-certain-point#5903087-->
+ <script>
+ var windw = this;
+
+$.fn.followTo = function ( pos ) {
+    var $this = this,
+        $window = $(windw);
+
+    $window.scroll(function(e){
+        if ($window.scrollTop() > pos) {
+            $this.css({
+                position: 'absolute',
+                top: pos
+            });
+        } else {
+            $this.css({
+                position: 'fixed',
+                top: 0
+            });
+        }
+    });
+};
+
+$('#fixedForm').followTo(250);
+    </script>
+
+    <style>
+        body{
+        background-image: url(../static/register_bg.jpg);
+        background-attachment: fixed;
+        background-size:100% auto;
+        background-repeat: no-repeat
+        }
+        #formDesign{
+            color:white;
+            padding-bottom:10%;
+            padding-left:5%;
+            padding-right:5%;
+            background-color: rgba(0, 0, 0, .4);
+        }
+        #messagesDisplayDesign{
+            color:white;
+            padding-bottom:10%;
+            padding-left:5%;
+            padding-right:5%;
+            background-color: rgba(0, 0, 0, .6);
+        }
+        #formheading{
+            padding:5%;
+            text-align: center;
+            font-family: "Baskerville Old Face";
+        }
+        #bottom{
+            padding-left: 10%;
+            padding-right: 10%;
+            padding-top:3%;
+            padding-bottom:3%;
+            background-color: #1b1e21;
+            text-align: left;
+            float: bottom;
+            font-size: small;
+        }
+        #bottomlist{
+            list-style-position: inside;
+            margin: 0;
+            padding: 0;
+            font-size: medium;
+            line-height: 0.5em;
+        }
+        #backbtn{
+            margin-top:5%;
+        }
+    </style>
+</head>
+<body>
+
+     <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
+        <a href="" class="navbar-brand">SMOKE HOUSE</a>
+        <!-- button to trigger links for small screens-->
+        <!-- this class(navbar-toggler) makes sure that the button is not visible when the browser window is at its largest. When the screen ()view port-->
+        <!--is smaller like a phone the link will disappear and the menu button will appear on the upper right corner-->
+        <button class="navbar-toggler" data-target="#mynav" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mynav">
+            <!-- mr-auto stand for margin right auto. self explanatory -->
+            <ul class="navbar-nav mr-auto">
+                 <li class="nav-item">
+                    <a href="/homepage#meals" class="nav-link">Meals</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/homepage#drinks" class="nav-link">Drinks</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/homepage#dessert" class="nav-link">Dessert</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/homepage#contactus" class="nav-link">Contact us</a>
+                </li>
+            </ul>
+            <nav class="navbar navbar-light bg-white">
+                {% if session['userkey'] %}
+                    <h6>
+                        Welcome: {{ session['userkey'] }}
+                        <a href="/logout" class="btn btn-warning">Logout</a>
+                    </h6>
+                {% endif %}
+            </nav>
+        </div>
+    </nav>
+
+    <section id="mainsection" style="padding:10%; padding-top:3%">
+
+        <section class="row">
+            <div class="col-md-4" id="formDesign">
+                <div id="fixedForm" style="position:fixed">
+                <h3 id="formheading"> Get in touch </h3>
+                <!--Action specifies where data is sent-->
+                <!--method specifies how data is sent-->
+                <h4 class="text-success">{{ msg }}</h4>
+                {% for detail in message_data %}
+                <h6 class="text-warning">Replying to : {{ detail[1] }}</h6>
+                <h6 class="text-warning">Posted : {{ detail[5] }}</h6>
+                {% endfor %}
+                <form action="/blog" method="post">
+                    Name:
+                    <br>
+                    <input type="text" name="name" placeholder="Enter name..." class="form-control">
+                    <h6 class="text-success">{{ msg_name }}</h6>
+
+                    Email:
+                    <br>
+                    <input type="email" name="email" placeholder="Enter email..." class="form-control">
+                    <h6 class="text-success">{{ msg_email }}</h6>
+
+                    Comment:
+                    <br>
+                    <textarea name="message" placeholder="Enter message..." class="form-control" style="height:150px"></textarea>
+                    <h6 class="text-success">{{ msg_comment }}</h6>
+                    <h6 class="text-success">{{ msg_comment_legnth }}</h6>
+
+                    <input type="submit" name="submit" value="POST COMMENT" class="btn btn-outline-warning">
+                </form>
+                </div>
+            </div>
+
+            <div class="col-md-8" id="messagesDisplayDesign">
+                <h5>{{ msg }}</h5>
+                <h4>{{ msg2 }}</h4>
+
+                {%  for row in rowdata %}
+                    <b >{{ row[1] }}</b><br>
+                    <i>{{ row[2] }}</i>
+                    <p>{{ row[3] }}</p>
+                    <p>Time posted: {{ row[5] }}</p>
+                    <p class="text-warning"><a href="/deleteblog/{{ row[0] }}">Delete</a> |
+                                            <a href="/reply/{{ row[0] }}">Reply</a> |
+                                            <a href="">LIKE</a></p>
+                    <hr color="text-warning" width="30%">
+                    <br>
+                {% endfor  %}
+
+            </div>
+        </section>
+
+
+
+
+
+
+
+    </section> <!--   ========= ENDING TAG FOR mainsection SECTION ===========  -->
+
+
+<!-- ============================= BOTTOM OF PAGE(FOOTER SECTION)================================ -->
+    <section class="row" id="bottom">
+            <div class="col-md-4">
+                <h5 class="text-light">About Us</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                <br>
+                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-light">Latest news</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <ul id="bottomlist" class="text-secondary" type="circle">
+                    <li>Trend dont matter but techniques does
+                        <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-light">Follow Us On Instagram</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <img src="../static/image/daisy.jpg" alt="image.jpg" class="img-fluid">
+            </div>
+    </section>
+
+
+    <footer>
+
+    </footer>
+
+
+
+
+</body>
+</html>

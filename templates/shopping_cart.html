@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <title>Backup</title>
+    <!-- ======================= links to bootstrap files =================== -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/animate.css">
+    <!-- ====================== links to javascript files =================== -->
+    <script src ="../static/bootstrap4.1.3/js/jquery.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/bootstrap.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/parallax.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/wow.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/jquery.easing.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/fliplightbox.min.js"></script>
+    <script src ="../static/bootstrap4.1.3/js/functions.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+        });
+    </script>
+
+
+    <style>
+
+        #landingpage h1{
+            font-weight: bolder;
+            font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+        }
+        #bottom{
+            padding-left: 10%;
+            padding-right: 10%;
+            padding-top:3%;
+            padding-bottom:3%;
+            background-color: #1b1e21;
+            text-align: left;
+            float: bottom;
+            font-size: small;
+        }
+        #bottomlist{
+            list-style-position: inside;
+            margin: 0;
+            padding: 0;
+            font-size: medium;
+            line-height: 0.5em;
+        }
+        .carousel-inner img{
+            width: 100%;
+            height: 600px;
+
+        }
+        .carousel-caption{
+            top: 50%;
+            transform: translateY(-50%);
+            bottom: initial;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
+        <a href="/homepage" class="navbar-brand">SMOKE HOUSE</a>
+        <!-- button to trigger links for small screens-->
+        <!-- this class(navbar-toggler) makes sure that the button is not visible when the browser window is at its largest. When the screen ()view port-->
+        <!--is smaller like a phone the link will disappear and the menu button will appear on the upper right corner-->
+        <button class="navbar-toggler" data-target="#mynav" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mynav">
+            <!-- mr-auto stand for margin right auto. self explanatory -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="#meals" class="nav-link">Meals</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#drinks" class="nav-link">Drinks</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#desserts" class="nav-link">Dessert</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contactus" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+            <h5>{{msg}}</h5>
+            <nav class="navbar navbar-light bg-white">
+                <form class="form-inline">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search...">
+                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
+    </nav>
+
+
+<!-- =============================================== shopping cart data displayed below =========================================================-->
+
+        <!-- ===================================== SECTION TWO ============================================= -->
+        <!-- =====================================    MEALS   ============================================= -->
+        <header class="header text-center" id="meals" style="padding-top:10%">
+        <h2 class="wow fadeIn" data-wow-delay="0.3s">Main Course</h2>
+        <hr color="#659df7" width="20%" align="center" >
+        <p>Shopping cart</p>
+        </header>
+        <!-- ========= ROW ONE ========== -->
+        <section class="row">
+            <div class="col-md-2"></div>
+              <div class="col-md-8">
+                {{ cart_data }}
+                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-light">Image</th>
+                            <th class="text-light">Item</th>
+                            <th class="text-light">Price($)</th>
+                            <th class="text-light">Quantity</th>
+                            <th class="text-light">Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {%  for row in cart_data %}
+                      <tr class="text-dark">
+                          <td lass="text-dark"> {{ row[4] }}</td>
+                          <td lass="text-dark">{{ row[2] }}</td>
+                          <td lass="text-dark">{{ row[3] }}</td>
+                          <td lass="text-dark">1</td>
+                          <td style="text-align:center"><a href="/delete-food"><i class="fa fa-trash fa-2x" ></i></a></td>
+
+                      </tr>
+                      {% endfor  %}
+                    </tbody>
+                </table>
+
+              </div>
+            <div class="col-md-2"></div>
+        </section>
+
+
+
+        <!-- ===================================== SECTION FIVE ============================================= -->
+        <!-- =====================================  CONTACT US   ============================================= -->
+        <header class="header text-center" id="contactus" style="padding-top:10%">
+            <h2>Talk to us</h2>
+            <hr color="#659df7" width="20%" align="center" >
+            <p>Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+        </header>
+        <section class="row">
+             <div class="col-md-6">
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2947.
+                 3822475406264!2d-71.11884878502468!3d42.37700287918577!2m3!1f0!2f0!3f0!
+                 3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e377427d7f0199%3A0x5937c65cee2427f0!
+                 2sHarvard+University!5e0!3m2!1sen!2ske!4v1537437036622" width="100%"
+                 height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+             </div>
+             <div class="col-md-6">
+                <form action="" role="form">
+                    <div class="form-group">
+                        <label for="">Email:</label> <br>
+                        <input type="email" class="form-control" placeholder="Your email...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tel:</label> <br>
+                        <input type="tel" class="form-control" placeholder="Your tel number...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Name:</label> <br>
+                        <input type="text" class="form-control" placeholder="Your name...">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Message:</label> <br>
+                        <textarea name="" id="" class="form-control" cols="50" rows="5" placeholder="Your comment..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-dark" value="Submit query">
+                    </div>
+                </form>
+             </div>
+        </section>
+
+
+
+    </section> <!--Ending tag for main section-->
+
+
+
+    <!-- ============================= BOTTOM OF PAGE(FOOTER SECTION)================================ -->
+
+    <section class="row" id="bottom">
+            <div class="col-md-4">
+                <h5 class="text-light">About Us</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <p class="text-secondary">Empowering the youth, electronic typesetting, remaining essentially unchanged. It was popularised in
+                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                <br>
+                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-light">Latest news</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <ul id="bottomlist" class="text-secondary" type="circle">
+                    <li>Trend dont matter but techniques does
+                        <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                    <li>Trend dont matter but techniques does
+                    <hr color="darkslategrey" >
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-light">Follow Us On Instagram</h5>
+                <hr color="#659df7" width="20%" align="left" >
+                <img src="../static/image/daisy.jpg" alt="image.jpg" class="img-fluid">
+            </div>
+    </section>
+
+
+
+
+</body>
+</html>
