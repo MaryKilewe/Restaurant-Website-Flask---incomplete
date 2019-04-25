@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import pymysql
 import pandas
@@ -50,7 +49,7 @@ def register():
             # flash('Message should be at least ten characters')
             return render_template('register.html', msg_comment_legnth="Password should be at least ten characters")
         else:
-            con = pymysql.connect("localhost", "root", "", "sampledb")
+            con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
             cursor = con.cursor()
             sql = "INSERT INTO register_tbl(`firstname`,`lastname`,`username`,`password`,`status`) VALUES(%s,%s,%s,%s,'user')"  # use tick marks ( ` ) instead of single quotes
         try:
@@ -75,7 +74,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        con = pymysql.connect("localhost", "root", "", "sampledb")
+        con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
         cursor = con.cursor()
         sql = "SELECT * FROM `register_tbl` WHERE `username` =% s AND `password` =% s"
         cursor.execute(sql, (username, password))
@@ -136,7 +135,7 @@ def blog():
             else:
                 #save the three items to db
                 #establish db connection
-                con = pymysql.connect("localhost", "root", "", "sampledb")
+                con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
                 #execute sql
                 #create a cursor object, cursor executes sql
                 cursor = con.cursor()
@@ -153,7 +152,7 @@ def blog():
                     rows = cursor.fetchall()
                     return render_template('blog.html', msg="Failed!", rowdata=rows)
         else:
-            con = pymysql.connect("localhost", "root", "", "sampledb")
+            con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
             cursor = con.cursor()
             sql = "SELECT * FROM `messages_tbl` ORDER BY `red_date` DESC"
             # execute sql
@@ -180,7 +179,7 @@ def deleteblog(msg_id):
     if 'userkey' in session:
 
         # we now delete the message with that id
-        con = pymysql.connect("localhost", "root", "", "sampledb")
+        con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
         cursor = con.cursor()
         sql = "DELETE FROM `messages_tbl` WHERE `message_id`=%s"
         # execute sql, provide the msg_id that we received
@@ -376,7 +375,7 @@ def additem():
         else:
             # save the three items to db
             # establish db connection
-            con = pymysql.connect("localhost", "root", "", "sampledb")
+            con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
             cursor = con.cursor()
             sql = "INSERT INTO allfood_tbl(`item`,`description`,`cost`,`image`) VALUES(%s,%s,%s,%s)"
             try:
@@ -432,7 +431,7 @@ def uploads():
 @app.route('/homepage')
 def homepage():
     if 'userkey' in session:
-        con = pymysql.connect("localhost", "root", "", "sampledb")
+        con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
 
         cursor_1 = con.cursor()
         cursor_2 = con.cursor()
@@ -485,7 +484,7 @@ def delete_image(pic):
 
 @app.route('/food-list', methods=['POST', 'GET'])
 def food_list():
-    con = pymysql.connect("localhost", "root", "", "sampledb")
+    con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
 
     cursor = con.cursor()
     sql_allfood = "SELECT * FROM `allfood_tbl` ORDER BY `id`"
@@ -509,7 +508,7 @@ def edit_food(item_id):
 
         # update the row with the specific id passed in the url above
         # --------------------------------------------------------------
-        con = pymysql.connect("localhost", "root", "", "sampledb")
+        con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
         # update main database
         cursor = con.cursor()
         sql = "UPDATE `allfood_tbl` " \
@@ -523,7 +522,7 @@ def edit_food(item_id):
         return redirect(url_for('food_list'))
 
     else:
-        con = pymysql.connect("localhost", "root", "", "sampledb")
+        con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
         cursor_1 = con.cursor()
         sql_allfood = "SELECT * FROM `allfood_tbl` ORDER BY `id`"
         cursor_1.execute(sql_allfood)
@@ -546,14 +545,10 @@ def edit_food(item_id):
 @app.route('/backend')
 def backend():
     if 'userkey' in session:
-
-
     elif 'userkey' not in session:
         return redirect('/login')
     else:
         return redirect('/login')
-
-
 # ===============================================================================
 # ===============================================================================
 '''
@@ -563,7 +558,7 @@ def backend():
 @app.route('/scatterplot')
 def scatterplot():
 
-    con = pymysql.connect("localhost", "root", "", "sampledb")
+    con = pymysql.connect("138.197.185.235","root","Sydney123","sampledb")
     df = pandas.read_sql("SELECT `quantity`, `State` FROM orders", con)
     plt.scatter(df['State'], df['quantity'], c=df['quantity'])
     plt.savefig('static/image/graphs/states-scatterplot.png')
