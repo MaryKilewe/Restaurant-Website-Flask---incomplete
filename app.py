@@ -89,7 +89,7 @@ def login():
                 return redirect('/backend')
             else:
                 session['userkey'] = username
-                return redirect('/blogMessages')
+                return redirect('/homepage')
 
         elif cursor.rowcount > 1:
             return render_template('login.html', msg="Try again later")
