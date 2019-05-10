@@ -3,6 +3,7 @@
 <head>
      <meta charset="UTF-8">
     <title>Backup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- ======================= links to bootstrap files =================== -->
     <link rel="stylesheet" href="../static/bootstrap4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="../static/bootstrap4.1.3/css/font-awesome.css">
@@ -16,6 +17,11 @@
     <script src ="../static/bootstrap4.1.3/js/fliplightbox.min.js"></script>
     <script src ="../static/bootstrap4.1.3/js/functions.js"></script>
 
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/css/font-awesome.css">
+     <link rel="stylesheet" href="../static/bootstrap4.1.3/assets/css/font-awesome.min.css"> <!-- adds icons -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/fontawesome/css/fontawesome.min.css"> <!-- adds icons -->
+
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/front_end_styling.css"> <!-- style sheet for dashboard and various other things -->
     <script>
         $(document).ready(function(){
 
@@ -23,42 +29,7 @@
     </script>
 
 
-    <style>
 
-        #landingpage h1{
-            font-weight: bolder;
-            font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
-        }
-        #bottom{
-            padding-left: 10%;
-            padding-right: 10%;
-            padding-top:3%;
-            padding-bottom:3%;
-            background-color: #1b1e21;
-            text-align: left;
-            float: bottom;
-            font-size: small;
-        }
-        #bottomlist{
-            list-style-position: inside;
-            margin: 0;
-            padding: 0;
-            font-size: medium;
-            line-height: 0.5em;
-        }
-        .carousel-inner img{
-            width: 100%;
-            height: 600px;
-
-        }
-        .carousel-caption{
-            top: 50%;
-            transform: translateY(-50%);
-            bottom: initial;
-        }
-
-
-    </style>
 </head>
 <body>
 
@@ -88,12 +59,16 @@
                 </li>
             </ul>
             <h5>{{msg}}</h5>
-            <nav class="navbar navbar-light bg-white">
-                <form class="form-inline">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search...">
-                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </nav>
+            <a href="/shopping_cart" style="padding-right:25px">
+                <i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color:green"><span style="padding-left:5px">{{ cart_details|length }}</span></i>
+            </a>
+            {% if session['userkey'] %}
+                <h6 style="float:right">
+                    Welcome: {{ session['userkey'] }}
+                    <a href="/logout" class="btn btn-warning">Logout</a>
+                </h6>
+            {% endif %}
+
         </div>
     </nav>
 
@@ -112,7 +87,7 @@
           <!-- The slideshow -->
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="../static/carousel/carousel1.jpg" alt="food asssortment">
+              <img src="../static/carousel/carousel1.jpg" alt="food asssortment" style="width:100%">
               <div class="carousel-caption">
                   <h1 class="text-primary">Are you hungry?</h1>
                   <p class="text-warning">Well, feast your eyes on our delectable range of juicy, mouthwatering, lip-biting meals.</p>
@@ -122,7 +97,7 @@
               </div>
             </div>
             <div class="carousel-item">
-              <img src="../static/carousel/chickenCarousel.jpg" alt="chicken">
+              <img src="../static/carousel/chickenCarousel.jpg" alt="chicken" style="width:100%">
                <div class="carousel-caption">
                   <h1 class="text-primary">Are you hungry?</h1>
                   <p class="text-warning">Well, feast your eyes on our delectable range of juicy, mouthwatering, lip-biting meals.</p>
@@ -132,8 +107,8 @@
               </div>
             </div>
             <div class="carousel-item">
-              <img src="../static/carousel/skewersCarousel.jpg" alt="skewers">
-              <div class="carousel-caption"  style=" margin:0 auto;">
+              <img src="../static/carousel/skewersCarousel.jpg" alt="skewers" style="width:100%" >
+              <div class="carousel-caption" >
                   <h1 class="text-primary">Are you hungry?</h1>
                   <p class="text-warning">Well, feast your eyes on our delectable range of juicy, mouthwatering, lip-biting meals.</p>
                   <p class="text-warning">Just say when and where and we'll that meal to you. Pronto!</p>
@@ -229,7 +204,7 @@
                     <div class="card-body">
                         <b class="card-title">{{ row[1] }}</b><br>
                         <p>{{ row[3] }} $</p>
-                        <a href="" class="btn btn-outline-success">Order Now</a>
+                        <a href="/cart/add/{{ row[0] }}" class="item_add btn btn-outline-success">Order Now</a>
                         <br>
                     </div>
 
@@ -257,7 +232,7 @@
                     <div class="card-body">
                         <b class="card-title">{{ row[1] }}</b><br>
                         <p>{{ row[3] }} $</p>
-                        <a href="" class="btn btn-outline-success">Order Now</a>
+                        <a href="/cart/add/{{ row[0] }}" class="item_add btn btn-outline-success">Order Now</a>
                         <br>
                     </div>
 
