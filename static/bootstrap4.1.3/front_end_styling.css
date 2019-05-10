@@ -8,8 +8,9 @@
 
 
         @media (min-width: 200px) {
-          .carousel-inner { max-height: 300px !important ;}
-            .carousel-caption { font-size: 2vw;}
+          carousel-inner { height: 300px !important ;}
+          .carousel-caption { font-size: 2vw;}
+          .carousel-caption h1 { font-size: 3vw;}
         }
 
         @media (min-width: 300px) {
