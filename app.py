@@ -428,6 +428,98 @@ def uploads():
     return render_template("menu-images.html", pics=pictures)
 
 
+@app.route('/cart/add/<item_id>', methods=['POST', 'GET'])
+def add_to_cart(item_id):
+    # do a cross join of the two tables maybe to retrieve the necessarinformation
+    if 'userkey' in session:
+        con = pymysql.connect("127.0.0.1","root","Sydney123","sampledb")
+
+        cursor_item_details = con.cursor()
+        # set default number for value in the database using the sql below
+        # ALTER TABLE shopping_cart_tbl
+        # ALTER quantity SET DEFAULT 1
+        sql_item_details ="INSERT INTO `shopping_cart_tbl` (customer_name, item_id, item, cost, image) " \
+             "SELECT register_tbl.username, allfood_tbl.id, allfood_tbl.item, allfood_tbl.cost, allfood_tbl.image " \
+             "FROM register_tbl " \
+             "CROSS JOIN allfood_tbl " \
+             "WHERE register_tbl.username = %s AND allfood_tbl.id = %s"
+
+        cursor_item_details.execute(sql_item_details, (session['userkey'], item_id))
+        con.commit()
+
+       # ----    when inserting always commit after the execution otherwise nothing wil show.
+
+        # insert the data in shopping cart table
+        return redirect(url_for('homepage'))
+
+    elif 'userkey' not in session:
+        return redirect('/login')
+    else:
+        return redirect('/login')
+
+
+@app.route("/delete_cart_item/<cart_item_id>")
+def delete_cart_item(cart_item_id):
+    if 'userkey' in session:
+
+        # we now delete the message with that id
+        con = pymysql.connect("127.0.0.1","root","Sydney123","sampledb")
+        cursor = con.cursor()
+        sql = "DELETE FROM `shopping_cart_tbl` WHERE `cart_item_id`=%s"
+        # execute sql, provide the msg_id that we received
+        try:
+            cursor.execute(sql, (cart_item_id))
+            con.commit()
+        #--------------------------------------------------- added this code
+
+           # return render_template('shopping_cart.html', msg2="Deleted one item" )
+            return redirect(url_for('show_cart', msg="Deleted one item"))
+        #--------------------------------------------------------------------
+            #return render_template('search.html')
+        except:
+            con.rollback()
+            return redirect('/shopping_cart')
+
+    elif 'userkey' not in session:
+        return redirect('/login')
+    else:
+        return redirect('/login')
+
+
+
+
+@app.route('/shopping_cart', methods=['POST', 'GET'])
+def show_cart():
+    if 'userkey' in session:
+        #quantity = request.form['quantity']
+
+        con = pymysql.connect("127.0.0.1","root","Sydney123","sampledb")
+
+        cursor_cart= con.cursor()
+        sql_cart= "SELECT * FROM `shopping_cart_tbl` WHERE customer_name=%s"
+        cursor_cart.execute(sql_cart, session['userkey'])
+        global details
+        details = cursor_cart.fetchall()
+        cart_details = details
+
+        cursor_sum_query = con.cursor()
+        sql_sum_query="SELECT ROUND(SUM(cost), 2) from shopping_cart_tbl WHERE customer_name=%s"
+        cursor_sum_query.execute(sql_sum_query, session['userkey'])
+        subtotal = cursor_sum_query.fetchall()
+
+        fee = 3
+
+        return render_template('shopping_cart.html', cart_data=cart_details, path_to_images='../static/image/',
+                               total_price=subtotal, shipping_fee=fee,
+                               quantity_data=[{'quantity': 1}, {'quantity': '2'},
+                                                 {'quantity': '3'}])
+
+    elif 'userkey' not in session:
+        return redirect('/login')
+    else:
+        return redirect('/login')
+
+
 @app.route('/homepage')
 def homepage():
     if 'userkey' in session:
@@ -448,11 +540,16 @@ def homepage():
         rows_drinks = cursor_2.fetchall()
         rows_dessert = cursor_3.fetchall()
 
-
+        cursor_cart = con.cursor()
+        sql_cart = "SELECT * FROM `shopping_cart_tbl` WHERE customer_name=%s"
+        cursor_cart.execute(sql_cart, session['userkey'])
+        global details
+        details = cursor_cart.fetchall()
+        cartdetails = details
 
         return render_template("homepage.html", mealsdata=rows_meals,
                                drinksdata=rows_drinks,
-                               dessertdata=rows_dessert,
+                               dessertdata=rows_dessert, cart_details=cartdetails,
                                path_to_images='../static/image/')
 
     elif 'userkey' not in session:
