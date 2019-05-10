@@ -9,6 +9,7 @@
 
         @media (min-width: 200px) {
           .carousel-inner { max-height: 300px !important ;}
+            .carousel-caption { font-size: 2vw;}
         }
 
         @media (min-width: 300px) {
