@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
      <meta charset="UTF-8">
-    <title>Backup</title>
+    <title>Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- ======================= links to bootstrap files =================== -->
     <link rel="stylesheet" href="../static/bootstrap4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="../static/bootstrap4.1.3/css/font-awesome.css">
@@ -15,54 +16,32 @@
     <script src ="../static/bootstrap4.1.3/js/jquery.easing.min.js"></script>
     <script src ="../static/bootstrap4.1.3/js/fliplightbox.min.js"></script>
     <script src ="../static/bootstrap4.1.3/js/functions.js"></script>
+    <script src="../static/simpleCart.js"></script>
+
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/assets/css/font-awesome.min.css"> <!-- adds icons -->
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/fontawesome/css/fontawesome.min.css"> <!-- adds icons -->
+
+    <link rel="stylesheet" href="../static/bootstrap4.1.3/front_end_styling.css"> <!-- style sheet for dashboard and various other things -->
 
     <script>
-        $(document).ready(function(){
-
-        });
+        $(function(){
+      // bind change event to select
+      $('#quantity').on('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+          }
+          return false;
+      });
+    });
     </script>
 
 
-    <style>
 
-        #landingpage h1{
-            font-weight: bolder;
-            font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
-        }
-        #bottom{
-            padding-left: 10%;
-            padding-right: 10%;
-            padding-top:3%;
-            padding-bottom:3%;
-            background-color: #1b1e21;
-            text-align: left;
-            float: bottom;
-            font-size: small;
-        }
-        #bottomlist{
-            list-style-position: inside;
-            margin: 0;
-            padding: 0;
-            font-size: medium;
-            line-height: 0.5em;
-        }
-        .carousel-inner img{
-            width: 100%;
-            height: 600px;
-
-        }
-        .carousel-caption{
-            top: 50%;
-            transform: translateY(-50%);
-            bottom: initial;
-        }
-
-
-    </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
+     <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
         <a href="/homepage" class="navbar-brand">SMOKE HOUSE</a>
         <!-- button to trigger links for small screens-->
         <!-- this class(navbar-toggler) makes sure that the button is not visible when the browser window is at its largest. When the screen ()view port-->
@@ -88,31 +67,40 @@
                 </li>
             </ul>
             <h5>{{msg}}</h5>
-            <nav class="navbar navbar-light bg-white">
-                <form class="form-inline">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search...">
-                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </nav>
+            <a href="/shopping_cart" style="padding-right:25px">
+                <i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color:green"><span style="padding-left:5px">{{ cart_data|length }}</span></i>
+            </a>
+            {% if session['userkey'] %}
+                <h6 style="float:right">
+                    Welcome: {{ session['userkey'] }}
+                    <a href="/logout" class="btn btn-warning">Logout</a>
+                </h6>
+            {% endif %}
+
         </div>
     </nav>
+
 
 
 <!-- =============================================== shopping cart data displayed below =========================================================-->
 
         <!-- ===================================== SECTION TWO ============================================= -->
         <!-- =====================================    MEALS   ============================================= -->
-        <header class="header text-center" id="meals" style="padding-top:10%">
-        <h2 class="wow fadeIn" data-wow-delay="0.3s">Main Course</h2>
+        <header class="header text-center" id="meals" style="padding-top:3%">
+        <h2 class="wow fadeIn" data-wow-delay="0.3s">Shopping Cart</h2>
         <hr color="#659df7" width="20%" align="center" >
-        <p>Shopping cart</p>
+
         </header>
-        <!-- ========= ROW ONE ========== -->
+        <!-- ========= CART  ========== -->
+        <section class="text-justify" style="padding-left: 10%; padding-right:10%">
+
         <section class="row">
             <div class="col-md-2"></div>
               <div class="col-md-8">
-                {{ cart_data }}
-                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+
+                  <h3>{{ msg }}</h3>
+                  <form action="/check_out" id="form" method="post" name="form" class="form" >
+                      <table id="bootstrap-data-table" class="table table-light table-bordered">
                     <thead class="thead-dark">
                         <tr>
                             <th class="text-light">Image</th>
@@ -124,18 +112,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                      {%  for row in cart_data %}
-                      <tr class="text-dark">
-                          <td lass="text-dark"> {{ row[4] }}</td>
-                          <td lass="text-dark">{{ row[2] }}</td>
-                          <td lass="text-dark">{{ row[3] }}</td>
-                          <td lass="text-dark">1</td>
-                          <td style="text-align:center"><a href="/delete-food"><i class="fa fa-trash fa-2x" ></i></a></td>
+                     {%  for row in cart_data %}
+                     <tr class="text-dark">
+                        <td class="text-dark" style="width:15%; text-align:center"><img id="image" name="image" src="{{ path_to_images }}{{ row[5] }}" class="rounded-circle" style="width:100px; height:30%"></td>
+                        <td class="text-dark" style="width:45%"><input style="background-color:white; border-color:white" id="item" name="item" type="text" value="{{ row[3] }}" class="form-control" disabled></td>
+                        <td class="text-dark" style="width:10%; text-align:center"><input style="background-color:white; border-color:white" id="cost" name="cost" type="number" step="0.01" min=0 value="{{ row[4] }}" class="form-control" disabled></td>
+                        <td class="text-dark" style="width:10%; text-align:center">
+                              <select id="quantity" name="quantity" class="form-control" style="background-color:white ; border-color:white">
+                                {% for number in quantity_data %}
+                                  <option value="{{ number.quantity }}"><a href="/confirm_cart">{{ number.quantity }}</a></option>
+                                <!--<input name="description" type="text" placeholder="Enter description..." class="form-control">-->
+                                {% endfor %}
+                              </select>
+                          </td>
 
-                      </tr>
+                        <td class="text-dark" style="width:10%; text-align:center"><a href="/delete_cart_item/{{ row[0] }}"><i class="fa fa-trash fa-2x"></i></a></td>
+                      <br>
                       {% endfor  %}
+                     </tr>
                     </tbody>
-                </table>
+                      </table>
+                      {% for sum in total_price %}
+                      <h5 id="subtotal" style="text-align:right">Subtotal :   <span style="padding-left:5%">{{ sum[0] }} $ </span></h5>
+                      {% endfor %}
+
+                      <h5 style="text-align:right">Shipping Fee : <span style="padding-left:5%">{{ shipping_fee }} $</span></h5>
+                      <hr color="green" width="25%" align="right">
+
+                      {% for sum in total_price  %}
+                      <h5 id="total" style="text-align:right">Total :   <span style="padding-left:5%">{{ sum[0] + shipping_fee }} $ </span></h5>
+                      {% endfor %}
+                      <br>
+                      <input class="btn btn-outline-success" style="float:right; font-weight:bold" type="submit" name="submit" value="Check Out">
+                  </form>
 
               </div>
             <div class="col-md-2"></div>
